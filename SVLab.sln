@@ -1,0 +1,61 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SVLab.Shared", "SVLab.Shared\SVLab.Shared.csproj", "{0297749F-5237-4BFD-AE7E-5A8496643761}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SVLab.UI", "SVLab.UI\SVLab.UI.csproj", "{144670CB-6396-488C-A76D-2E03A3B69E78}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{3AB98428-A687-4F2B-9AB2-90D297800791}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SVLab.UI.Infrastructure", "SVLab.UI.Infrastructure\SVLab.UI.Infrastructure.csproj", "{A5FDB873-326B-42E6-8C21-D9CA1347F37F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectBrowser", "Modules\ProjectBrowser\ProjectBrowser.csproj", "{B02177C3-39E5-4192-96BB-D213244C2182}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogViewer", "Modules\LogViewer\LogViewer.csproj", "{EABE6330-EB94-436B-8DAA-ECBBC9059056}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F441EE6E-24EC-40FE-9471-DDAAA58C1767}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0297749F-5237-4BFD-AE7E-5A8496643761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0297749F-5237-4BFD-AE7E-5A8496643761}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0297749F-5237-4BFD-AE7E-5A8496643761}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0297749F-5237-4BFD-AE7E-5A8496643761}.Release|Any CPU.Build.0 = Release|Any CPU
+		{144670CB-6396-488C-A76D-2E03A3B69E78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{144670CB-6396-488C-A76D-2E03A3B69E78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{144670CB-6396-488C-A76D-2E03A3B69E78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{144670CB-6396-488C-A76D-2E03A3B69E78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5FDB873-326B-42E6-8C21-D9CA1347F37F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5FDB873-326B-42E6-8C21-D9CA1347F37F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5FDB873-326B-42E6-8C21-D9CA1347F37F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5FDB873-326B-42E6-8C21-D9CA1347F37F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B02177C3-39E5-4192-96BB-D213244C2182}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B02177C3-39E5-4192-96BB-D213244C2182}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B02177C3-39E5-4192-96BB-D213244C2182}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B02177C3-39E5-4192-96BB-D213244C2182}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EABE6330-EB94-436B-8DAA-ECBBC9059056}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EABE6330-EB94-436B-8DAA-ECBBC9059056}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EABE6330-EB94-436B-8DAA-ECBBC9059056}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EABE6330-EB94-436B-8DAA-ECBBC9059056}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B02177C3-39E5-4192-96BB-D213244C2182} = {3AB98428-A687-4F2B-9AB2-90D297800791}
+		{EABE6330-EB94-436B-8DAA-ECBBC9059056} = {3AB98428-A687-4F2B-9AB2-90D297800791}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Validation.6.0.1304.0\lib\NET45
+	EndGlobalSection
+EndGlobal
