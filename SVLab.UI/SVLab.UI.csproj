@@ -64,7 +64,8 @@
     <Reference Include="Microsoft.Practices.Prism.UnityExtensions">
       <HintPath>..\packages\Prism.UnityExtensions.5.0.1\lib\NET45\Microsoft.Practices.Prism.UnityExtensions.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\CommonServiceLocator.1.2\lib\portable-windows8+net40+sl5+windowsphone8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity">
@@ -149,9 +150,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\SVLab.Shared\SVLab.Shared.csproj">
+    <ProjectReference Include="..\SVLab.Shared\SVLab.Shared.Entities.csproj">
       <Project>{0297749f-5237-4bfd-ae7e-5a8496643761}</Project>
-      <Name>SVLab.Shared</Name>
+      <Name>SVLab.Shared.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\SVLab.UI.Infrastructure\SVLab.UI.Infrastructure.csproj">
       <Project>{a5fdb873-326b-42e6-8c21-d9ca1347f37f}</Project>

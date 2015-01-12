@@ -1,8 +1,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SVLab.Shared", "SVLab.Shared\SVLab.Shared.csproj", "{0297749F-5237-4BFD-AE7E-5A8496643761}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SVLab.Shared.Entities", "SVLab.Shared\SVLab.Shared.Entities.csproj", "{0297749F-5237-4BFD-AE7E-5A8496643761}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SVLab.UI", "SVLab.UI\SVLab.UI.csproj", "{144670CB-6396-488C-A76D-2E03A3B69E78}"
 EndProject
@@ -20,6 +20,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F441EE
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{B41BA7E7-BFD3-4EDC-A25F-C3FFCE4450CA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{C647446E-F258-49DD-B68D-6AB951F122EA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{37026A20-6A23-4075-BFAA-41E3DA1CB43E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SVLab.Shared.Commands", "Commands\SVLab.Shared.Commands.csproj", "{A6370CE3-308C-42B8-9060-C7AF6E0A9429}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SVLab.Shared.Queries", "SVLab.Shared.Queries\SVLab.Shared.Queries.csproj", "{416A58DA-AB14-4654-BF5E-A2722B62E64E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SVLab.Shared.Events", "SVLab.Shared.Events\SVLab.Shared.Events.csproj", "{6CADEF38-2CDA-4249-9130-B0EF26A9B8D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SVLab.Server.CommandService", "SVLab.Server\SVLab.Server.CommandService.csproj", "{BE80C2AA-5D38-4723-A5B0-7DFA1B565F5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SVLab.Server.QueryService", "SVLab.Server.QueryService\SVLab.Server.QueryService.csproj", "{934512BD-4F23-4BFA-8D15-4215FDA5DDE2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,13 +63,42 @@ Global
 		{EABE6330-EB94-436B-8DAA-ECBBC9059056}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EABE6330-EB94-436B-8DAA-ECBBC9059056}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EABE6330-EB94-436B-8DAA-ECBBC9059056}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6370CE3-308C-42B8-9060-C7AF6E0A9429}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6370CE3-308C-42B8-9060-C7AF6E0A9429}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6370CE3-308C-42B8-9060-C7AF6E0A9429}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6370CE3-308C-42B8-9060-C7AF6E0A9429}.Release|Any CPU.Build.0 = Release|Any CPU
+		{416A58DA-AB14-4654-BF5E-A2722B62E64E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{416A58DA-AB14-4654-BF5E-A2722B62E64E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{416A58DA-AB14-4654-BF5E-A2722B62E64E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{416A58DA-AB14-4654-BF5E-A2722B62E64E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CADEF38-2CDA-4249-9130-B0EF26A9B8D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CADEF38-2CDA-4249-9130-B0EF26A9B8D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CADEF38-2CDA-4249-9130-B0EF26A9B8D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CADEF38-2CDA-4249-9130-B0EF26A9B8D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE80C2AA-5D38-4723-A5B0-7DFA1B565F5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE80C2AA-5D38-4723-A5B0-7DFA1B565F5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE80C2AA-5D38-4723-A5B0-7DFA1B565F5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE80C2AA-5D38-4723-A5B0-7DFA1B565F5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{934512BD-4F23-4BFA-8D15-4215FDA5DDE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{934512BD-4F23-4BFA-8D15-4215FDA5DDE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{934512BD-4F23-4BFA-8D15-4215FDA5DDE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{934512BD-4F23-4BFA-8D15-4215FDA5DDE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{0297749F-5237-4BFD-AE7E-5A8496643761} = {C647446E-F258-49DD-B68D-6AB951F122EA}
+		{144670CB-6396-488C-A76D-2E03A3B69E78} = {B41BA7E7-BFD3-4EDC-A25F-C3FFCE4450CA}
+		{3AB98428-A687-4F2B-9AB2-90D297800791} = {B41BA7E7-BFD3-4EDC-A25F-C3FFCE4450CA}
+		{A5FDB873-326B-42E6-8C21-D9CA1347F37F} = {B41BA7E7-BFD3-4EDC-A25F-C3FFCE4450CA}
 		{B02177C3-39E5-4192-96BB-D213244C2182} = {3AB98428-A687-4F2B-9AB2-90D297800791}
 		{EABE6330-EB94-436B-8DAA-ECBBC9059056} = {3AB98428-A687-4F2B-9AB2-90D297800791}
+		{A6370CE3-308C-42B8-9060-C7AF6E0A9429} = {C647446E-F258-49DD-B68D-6AB951F122EA}
+		{416A58DA-AB14-4654-BF5E-A2722B62E64E} = {C647446E-F258-49DD-B68D-6AB951F122EA}
+		{6CADEF38-2CDA-4249-9130-B0EF26A9B8D6} = {C647446E-F258-49DD-B68D-6AB951F122EA}
+		{BE80C2AA-5D38-4723-A5B0-7DFA1B565F5E} = {37026A20-6A23-4075-BFAA-41E3DA1CB43E}
+		{934512BD-4F23-4BFA-8D15-4215FDA5DDE2} = {37026A20-6A23-4075-BFAA-41E3DA1CB43E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Validation.6.0.1304.0\lib\NET45
