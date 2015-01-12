@@ -1,5 +1,6 @@
 ﻿using DevExpress.Xpf.Docking;
 using Microsoft.Practices.Prism.Regions;
+using SVLab.UI.Infrastructure.Interfaces;
 using System.Collections.Specialized;
 
 namespace SVLab.UI.Infrastructure.Adapters
@@ -27,9 +28,24 @@ namespace SVLab.UI.Infrastructure.Adapters
             {
                 foreach (object view in e.NewItems)
                 {
-                    LayoutPanel panel = new LayoutPanel() { Content = view, Caption = "" };
+                    var panel = new LayoutPanel();
+                    IView viewInfo = view as IView;
 
-                    regionTarget.Items.Add(panel);
+                    if (viewInfo != null)
+                    {
+                        panel.Caption = viewInfo.Caption;
+
+                        region.Remove(view);
+                        RegionManager.SetRegionName(panel, viewInfo.RegionName);
+                        RegionManager.SetRegionManager(panel, region.RegionManager);
+                        region.RegionManager.RegisterViewWithRegion(viewInfo.RegionName, () => view);
+                    }
+                    else
+                    {
+                        panel.Caption = "";
+                    }
+
+                    regionTarget.Add(panel);
                     regionTarget.SelectedTabIndex = regionTarget.Items.Count - 1;
                 }
             }

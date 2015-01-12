@@ -9,8 +9,6 @@ namespace SVLab.UI.Infrastructure.Logging
 {
     public class EnterpriseLibraryLogger : ILoggerFacade
     {
-        //private readonly LogWriter writer = null;
-
         public EnterpriseLibraryLogger()
         {
             Logger.SetLogWriter(new LogWriter(LoggerConfig()));

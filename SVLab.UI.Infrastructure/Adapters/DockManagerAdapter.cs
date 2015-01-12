@@ -2,6 +2,7 @@
 using DevExpress.Xpf.Docking.Base;
 using Microsoft.Practices.Prism.Logging;
 using Microsoft.Practices.Prism.Regions;
+using SVLab.UI.Infrastructure.Interfaces;
 using System;
 using System.Collections.Specialized;
 using System.Windows.Controls;
@@ -31,8 +32,6 @@ namespace SVLab.UI.Infrastructure.Adapters
             {
                 string regionName = RegionManager.GetRegionName(item);
 
-                this.logger.Log(String.Format("DockManagerAdapter: Adapt region '{0}'", regionName), Category.Debug, Priority.None);
-
                 if (!String.IsNullOrEmpty(regionName))
                 {
                     LayoutPanel panel = item as LayoutPanel;
@@ -57,7 +56,19 @@ namespace SVLab.UI.Infrastructure.Adapters
 
         void OnDockOperationCompleted(IRegion region, DockLayoutManager regionTarget, object sender, DockOperationCompletedEventArgs e)
         {
-            this.logger.Log(String.Format("DockManagerAdapter: OnDockItemDocking called for {0} while {1}.", e.Item, e.DockOperation), Category.Debug, Priority.None);
+            if (e.DockOperation == DockOperation.Close && e.Item.GetType() == typeof(LayoutPanel))
+            {
+                IView view = ((LayoutPanel)e.Item).Content as IView;
+
+                if (view != null)
+                {
+                    if (region.RegionManager.Regions.ContainsRegionWithName(view.RegionName) && region.RegionManager.Regions[view.RegionName].Views.Contains(view))
+                    {
+                        region.RegionManager.Regions[view.RegionName].Remove(view);
+                        logger.Log(String.Format("Removed view '{0}' from '{1}'", view.ViewName, view.RegionName), Category.Debug, Priority.None);
+                    }
+                }
+            }
         }
     }
 }

@@ -69,16 +69,17 @@
     <Compile Include="Adapters\DocumentGroupAdapter.cs" />
     <Compile Include="Adapters\LayoutGroupAdapter.cs" />
     <Compile Include="Adapters\LayoutPanelAdapter.cs" />
-    <Compile Include="Adapters\FloatGroupAdapter.cs" />
     <Compile Include="Adapters\TabbedGroupAdapter.cs" />
     <Compile Include="Interfaces\IEntityService.cs" />
-    <Compile Include="Interfaces\IPanelInfo.cs" />
-    <Compile Include="Interfaces\IViewRegionRegistration.cs" />
+    <Compile Include="Interfaces\ILogMessage.cs" />
+    <Compile Include="Interfaces\ILogViewerLogger.cs" />
+    <Compile Include="Interfaces\IView.cs" />
     <Compile Include="Logging\EnterpriseLibraryLogger.cs" />
+    <Compile Include="Logging\LogMessage.cs" />
+    <Compile Include="Logging\LogViewerLogger.cs" />
     <Compile Include="Menubar\IMenuService.cs" />
     <Compile Include="Menubar\MenuItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegionBehaviors\FloatGroupRegionBehavior.cs" />
     <Compile Include="RegionBehaviors\TabbedGroupRegionBehavior.cs" />
     <Compile Include="Constants\RegionNames.cs" />
   </ItemGroup>

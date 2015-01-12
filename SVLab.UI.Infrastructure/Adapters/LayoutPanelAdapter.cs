@@ -2,6 +2,7 @@
 using Microsoft.Practices.Prism.Logging;
 using Microsoft.Practices.Prism.Regions;
 using System;
+using System.Collections.Specialized;
 
 namespace SVLab.UI.Infrastructure.Adapters
 {
@@ -22,14 +23,28 @@ namespace SVLab.UI.Infrastructure.Adapters
 
         protected override void Adapt(IRegion region, LayoutPanel regionTarget)
         {
-            region.Views.CollectionChanged += (d, e) =>
+            region.Views.CollectionChanged += (s, e) => OnViewsCollectionChanged(region, regionTarget, s, e);
+        }
+
+        void OnViewsCollectionChanged(IRegion region, LayoutPanel regionTarget, object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add)
             {
-                if (e.NewItems != null)
+                regionTarget.Content = e.NewItems[0];
+                regionTarget.Visibility = System.Windows.Visibility.Visible;
+
+                DockLayoutManager dockLayoutManager = regionTarget.GetDockLayoutManager();
+                if (dockLayoutManager.ClosedPanels.Contains(regionTarget))
                 {
-                    regionTarget.Content = e.NewItems[0];
-                    this.logger.Log(String.Format("LayoutPanelAdapter: View '{0}' added to region '{1}'", e.NewItems[0], region.Name), Category.Debug, Priority.None);
+                    dockLayoutManager.DockController.Restore(regionTarget);
                 }
-            };
+            }
+
+            if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                regionTarget.Content = null;
+                regionTarget.Visibility = System.Windows.Visibility.Collapsed;
+            }
         }
     }
 }

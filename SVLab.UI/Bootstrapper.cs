@@ -5,6 +5,7 @@ using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.Unity;
 using SVLab.UI.Infrastructure.Adapters;
+using SVLab.UI.Infrastructure.Interfaces;
 using SVLab.UI.Infrastructure.Logging;
 using SVLab.UI.Infrastructure.Menubar;
 using SVLab.UI.Infrastructure.RegionBehaviors;
@@ -19,11 +20,12 @@ namespace SVLab.UI
 {
     public class Bootstrapper : UnityBootstrapper
     {
-        private readonly EnterpriseLibraryLogger _logger = new EnterpriseLibraryLogger();
+        //private readonly EnterpriseLibraryLogger logger = new EnterpriseLibraryLogger();
+        private readonly LogViewerLogger logger = new LogViewerLogger();
 
         protected override ILoggerFacade CreateLogger()
         {
-            return _logger;
+            return logger;
         }
 
         protected override IModuleCatalog CreateModuleCatalog()
@@ -38,7 +40,6 @@ namespace SVLab.UI
 
             mappings.RegisterMapping(typeof(DockLayoutManager), Container.Resolve<DockManagerAdapter>());
             mappings.RegisterMapping(typeof(DocumentGroup), Container.Resolve<DocumentGroupAdapter>());
-            mappings.RegisterMapping(typeof(FloatGroup), Container.Resolve<FloatGroupAdapter>());
             mappings.RegisterMapping(typeof(LayoutGroup), Container.Resolve<LayoutGroupAdapter>());
             mappings.RegisterMapping(typeof(LayoutPanel), Container.Resolve<LayoutPanelAdapter>());
             mappings.RegisterMapping(typeof(TabbedGroup), Container.Resolve<TabbedGroupAdapter>());
@@ -51,7 +52,6 @@ namespace SVLab.UI
             IRegionBehaviorFactory behaviors = base.ConfigureDefaultRegionBehaviors();
 
             behaviors.AddIfMissing(TabbedGroupRegionBehavior.BehaviorKey, typeof(TabbedGroupRegionBehavior));
-            behaviors.AddIfMissing(FloatGroupRegionBehavior.BehaviorKey, typeof(FloatGroupRegionBehavior));
 
             return behaviors;
         }
@@ -61,6 +61,7 @@ namespace SVLab.UI
             base.ConfigureContainer();
 
             Container.RegisterType<IMenuService, MenuService>();
+            Container.RegisterInstance(typeof(ILogViewerLogger), logger);
         }
 
         protected override DependencyObject CreateShell()

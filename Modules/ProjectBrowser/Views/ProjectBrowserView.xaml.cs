@@ -1,6 +1,4 @@
-﻿using Microsoft.Practices.Prism.Mvvm;
-using Microsoft.Practices.Prism.Regions;
-using ProjectBrowser.ViewModels;
+﻿using ProjectBrowser.ViewModels;
 using SVLab.UI.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,21 +10,30 @@ namespace ProjectBrowser.Views
     /// <summary>
     /// Interaction logic for ProjectBrowser.xaml
     /// </summary>
-    public partial class ProjectBrowserView : UserControl, IPanelInfo, IView
+    public partial class ProjectBrowserView : UserControl, IView
     {
-        private readonly IRegionManager regionManager = null;
-
-        public ProjectBrowserView(ProjectBrowserViewModel viewModel, IRegionManager regionManager)
+        public ProjectBrowserView(ProjectBrowserViewModel viewModel)
         {
             InitializeComponent();
 
             DataContext = viewModel;
-            this.regionManager = regionManager;
         }
 
-        public string GetPanelCaption()
+        #region IView
+        public string Caption
         {
-            return "Project Browser";
+            get { return "Project Browser"; }
         }
+
+        public string RegionName
+        {
+            get { return "ProjectBrowser"; }
+        }
+
+        public string ViewName
+        {
+            get { return "ProjectBrowserView"; }
+        }
+        #endregion IView
     }
 }

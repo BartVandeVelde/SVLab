@@ -35,12 +35,12 @@ namespace SVLab.UI.Infrastructure.Adapters
                 {
                     DockLayoutManager manager = regionTarget.GetDockLayoutManager();
                     DocumentPanel panel = manager.DockController.AddDocumentPanel(regionTarget);
-                    
-                    IPanelInfo panelInfo = panel.Content as IPanelInfo;
 
-                    if (panelInfo != null)
+                    IView viewInfo = panel.Content as IView;
+
+                    if (viewInfo != null)
                     {
-                        panel.Caption = panelInfo.GetPanelCaption();
+                        panel.Caption = viewInfo.Caption;
                     }
                     else
                     {

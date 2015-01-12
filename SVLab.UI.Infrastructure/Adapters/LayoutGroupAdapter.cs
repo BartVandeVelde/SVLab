@@ -25,63 +25,32 @@ namespace SVLab.UI.Infrastructure.Adapters
         protected override void Adapt(IRegion region, LayoutGroup regionTarget)
         {
             region.Views.CollectionChanged += (s, e) => OnViewsCollectionChanged(region, regionTarget, s, e);
-            regionTarget.Items.CollectionChanged += (s, e) => OnItemsCollectionChanged(region, regionTarget, s, e);
-        }
-
-        bool _lockItemsChanged;
-        bool _lockViewsChanged;
-
-        void OnItemsCollectionChanged(IRegion region, LayoutGroup regionTarget, object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (_lockItemsChanged)
-                return;
-
-            if (e.Action == NotifyCollectionChangedAction.Remove)
-            {
-                _lockViewsChanged = true;
-                var lp = (LayoutPanel)e.OldItems[0];
-                var view = lp.Content;
-
-                if (region.Views.Contains(view))
-                {
-                    region.Remove(view);
-                    this.logger.Log(String.Format("LayoutGroupAdapter: View '{0}' removed from region '{1}'", view, region.Name), Category.Debug, Priority.None);
-                }
-                else
-                {
-                    this.logger.Log(String.Format("LayoutGroupAdapter: Could not remove view '{0}' from region '{1}'", view, region.Name), Category.Exception, Priority.Medium);
-                }
-
-                _lockViewsChanged = false;
-            }
         }
 
         void OnViewsCollectionChanged(IRegion region, LayoutGroup regionTarget, object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (_lockViewsChanged)
-                return;
-
             if (e.Action == NotifyCollectionChangedAction.Add)
             {
                 foreach (var view in e.NewItems)
                 {
-                    var panel = new LayoutPanel { Content = view };
-                    IPanelInfo panelInfo = view as IPanelInfo;
+                    var panel = new LayoutPanel();
+                    IView viewInfo = view as IView;
 
-                    if (panelInfo != null)
+                    if (viewInfo != null)
                     {
-                        panel.Caption = panelInfo.GetPanelCaption();
+                        panel.Caption = viewInfo.Caption;
+
+                        region.Remove(view);
+                        RegionManager.SetRegionName(panel, viewInfo.RegionName);
+                        RegionManager.SetRegionManager(panel, region.RegionManager);
+                        region.RegionManager.RegisterViewWithRegion(viewInfo.RegionName, () => view);
                     }
                     else
                     {
                         panel.Caption = "";
                     }
 
-                    _lockItemsChanged = true;
-                    regionTarget.Items.Add(panel);
-                    this.logger.Log(String.Format("LayoutGroupAdapter: View '{0}' added to region '{1}'", view, region.Name), Category.Debug, Priority.None);
-                    _lockItemsChanged = false;
-
+                    regionTarget.Add(panel);
                     regionTarget.SelectedTabIndex = regionTarget.Items.Count - 1;
                 }
             }
@@ -103,10 +72,8 @@ namespace SVLab.UI.Infrastructure.Adapters
 
                     if (viewPanel == null) continue;
                     viewPanel.Content = null;
-                    _lockItemsChanged = true;
-                    regionTarget.Items.Remove(viewPanel);
-                    this.logger.Log(String.Format("LayoutGroupAdapter: View '{0}' removed from region '{1}'", view, region.Name), Category.Debug, Priority.None);
-                    _lockItemsChanged = false;
+
+                    regionTarget.Remove(viewPanel);
                     regionTarget.SelectedTabIndex = regionTarget.Items.Count - 1;
                 }
             }

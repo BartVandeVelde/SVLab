@@ -26,8 +26,10 @@ namespace ProjectBrowser
         private readonly ILoggerFacade logger = null;
 
         private DelegateCommand cmdOpenProjectBrowserModule;
-        private DelegateCommand cmdLogCurrentRegionName;
+        private DelegateCommand cmdShowRegionsAndViews;
 
+        private ProjectBrowserView view;
+        
         public ProjectBrowserModule(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator, IMenuService menuService, ILoggerFacade logger)
         {
             this.container = container;
@@ -53,17 +55,36 @@ namespace ProjectBrowser
             this.container.RegisterType<ProjectBrowserView>();
             this.container.RegisterType<ProjectBrowserViewModel>(new ContainerControlledLifetimeManager());
             this.container.RegisterType<IEntityService, EntityService>(new ContainerControlledLifetimeManager());
+
+            this.view = this.container.Resolve<ProjectBrowserView>();
+            //this.container.RegisterInstance(this.view);
         }
 
         private void RegisterViewWithRegion()
         {
-            // View discovery
-            //this.regionManager.RegisterViewWithRegion(RegionNames.LeftRegion, typeof(ProjectBrowserView));
+            this.regionManager.Regions[RegionNames.LeftRegion].Add(view, ((IView)view).ViewName);
+        }
 
-            // View injection
-            //this.regionManager.RequestNavigate(RegionNames.LeftRegion, );
-            // or
-            this.regionManager.Regions[RegionNames.LeftRegion].Add(this.container.Resolve<ProjectBrowserView>());
+        private void ToggleRegisterView()
+        {
+            if (this.regionManager.Regions.ContainsRegionWithName(this.view.RegionName))
+            {
+                if (this.regionManager.Regions[view.RegionName].Views.Contains(this.view))
+                {
+                    this.regionManager.Regions[view.RegionName].Remove(this.view);
+                    logger.Log(String.Format("Removed view '{0}' from '{1}'", view.ViewName , view.RegionName), Category.Debug, Priority.None);
+                }
+                else
+                {
+                    this.regionManager.Regions[view.RegionName].Add(this.view);
+                    logger.Log(String.Format("Added view '{0}' from '{1}'", view.ViewName, view.RegionName), Category.Debug, Priority.None);
+                }
+            }
+            else
+            {
+                RegisterViewWithRegion();
+                logger.Log(String.Format("Registered view '{0}' with region '{1}'", view.ViewName, view.RegionName), Category.Debug, Priority.None);
+            }
         }
         #endregion
 
@@ -73,7 +94,7 @@ namespace ProjectBrowser
             logger.Log(String.Format("SetupCommands voor '{0}'", this.GetType()), Category.Debug, Priority.None);
 
             cmdOpenProjectBrowserModule = new DelegateCommand(OpenProjectBrowserModule, CanOpenProjectBrowserModule);
-            cmdLogCurrentRegionName = new DelegateCommand(LogCurrentRegionName, CanLogCurrentRegionName);
+            cmdShowRegionsAndViews = new DelegateCommand(LogShowRegionsAndViews, CanShowRegionsAndViews);
         }
 
         private void SetupModuleMenu()
@@ -81,7 +102,7 @@ namespace ProjectBrowser
             logger.Log(String.Format("SetupModuleMenu voor '{0}'", this.GetType()), Category.Debug, Priority.None);
 
             menuService.Add(new MenuItem { Parent = "View", Title = "Project Browser", Command = cmdOpenProjectBrowserModule });
-            menuService.Add(new MenuItem { Parent = "Project", Title = "Log current region", Command = cmdLogCurrentRegionName  });
+            menuService.Add(new MenuItem { Parent = "Project", Title = "Log regions and views", Command = cmdShowRegionsAndViews  });
         }
         #endregion
 
@@ -93,30 +114,24 @@ namespace ProjectBrowser
 
         private void OpenProjectBrowserModule()
         {
-            RegisterViewWithRegion();
+            ToggleRegisterView();
         }
 
-        private bool CanLogCurrentRegionName()
+        private bool CanShowRegionsAndViews()
         {
             return this.regionManager != null && this.logger != null;
         }
 
-        private void LogCurrentRegionName()
+        private void LogShowRegionsAndViews()
         {
-            bool found = false;
-
             foreach( IRegion region in this.regionManager.Regions)
             {
-                if( region.Views.Any(v => v.GetType() == typeof(ProjectBrowserView)))
-                {
-                    found = true;
-                    this.logger.Log(String.Format("ProjectBrowserView is currently hosted in the region '{0}'", region.Name), Category.Debug, Priority.None);
-                }
-            }
+                this.logger.Log(String.Format("Region '{0}'", region.Name), Category.Debug, Priority.None);
 
-            if( !found)
-            {
-                this.logger.Log("The current region for ProjectBrowserView could not be found.", Category.Debug, Priority.None);
+                foreach (object view in region.Views)
+                {
+                    this.logger.Log(String.Format("\tView '{0}'", view.GetType()), Category.Debug, Priority.None);
+                }
             }
         }
         #endregion

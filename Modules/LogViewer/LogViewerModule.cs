@@ -7,11 +7,11 @@ using Microsoft.Practices.Unity;
 using LogViewer.ViewModels;
 using LogViewer.Views;
 using SVLab.UI.Infrastructure.Constants;
-using SVLab.UI.Infrastructure.Interfaces;
 using SVLab.UI.Infrastructure.Menubar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SVLab.UI.Infrastructure.Interfaces;
 
 namespace LogViewer
 {
@@ -25,6 +25,8 @@ namespace LogViewer
         private readonly ILoggerFacade logger = null;
 
         private DelegateCommand cmdOpenLogViewerModule;
+
+        private LogViewerView view;
 
         public LogViewerModule(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator, IMenuService menuService, ILoggerFacade logger)
         {
@@ -50,11 +52,35 @@ namespace LogViewer
         {
             this.container.RegisterType<LogViewerView>();
             this.container.RegisterType<LogViewerViewModel>();
+
+            this.view = this.container.Resolve<LogViewerView>();
         }
 
         private void RegisterViewWithRegion()
         {
-            this.regionManager.RegisterViewWithRegion(RegionNames.RightRegion, typeof(LogViewerView));
+            this.regionManager.Regions[RegionNames.TabRegion].Add(view, ((IView)view).ViewName);
+        }
+
+        private void ToggleRegisterView()
+        {
+            if (this.regionManager.Regions.ContainsRegionWithName(this.view.RegionName))
+            {
+                if (this.regionManager.Regions[view.RegionName].Views.Contains(this.view))
+                {
+                    this.regionManager.Regions[view.RegionName].Remove(this.view);
+                    logger.Log(String.Format("Removed view '{0}' from '{1}'", view.ViewName, view.RegionName), Category.Debug, Priority.None);
+                }
+                else
+                {
+                    this.regionManager.Regions[view.RegionName].Add(this.view);
+                    logger.Log(String.Format("Added view '{0}' from '{1}'", view.ViewName, view.RegionName), Category.Debug, Priority.None);
+                }
+            }
+            else
+            {
+                RegisterViewWithRegion();
+                logger.Log(String.Format("Registered view '{0}' with region '{1}'", view.ViewName, view.RegionName), Category.Debug, Priority.None);
+            }
         }
         #endregion
 
@@ -83,7 +109,7 @@ namespace LogViewer
 
         private void OpenLogViewerModule()
         {
-            RegisterViewWithRegion();
+            ToggleRegisterView();
         }
         #endregion
     }
