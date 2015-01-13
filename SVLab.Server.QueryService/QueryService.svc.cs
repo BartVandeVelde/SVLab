@@ -1,3 +1,4 @@
+using SVLab.Server.QueryService.Core.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Data.Services;
@@ -7,7 +8,7 @@ using System.Linq;
 
 namespace SVLab.Server.QueryService
 {
-    public class QueryService : //EntityFrameworkDataService< /* TODO: put your data source class name here */ >
+    public class QueryService : EntityFrameworkDataService<EntitiesContext>
     {
         // This method is called only once to initialize service-wide policies.
         public static void InitializeService(DataServiceConfiguration config)

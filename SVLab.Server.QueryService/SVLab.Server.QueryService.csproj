@@ -110,7 +110,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="EntityFramework\" />
+    <ProjectReference Include="..\SVLab.Server.QueryService.Core\SVLab.Server.QueryService.Core.csproj">
+      <Project>{5a53bf0f-ebfa-4a0e-a72f-d9aa534963dc}</Project>
+      <Name>SVLab.Server.QueryService.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -88,6 +88,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\SVLab.Shared.Entities\SVLab.Shared.Entities.csproj">
+      <Project>{0297749f-5237-4bfd-ae7e-5a8496643761}</Project>
+      <Name>SVLab.Shared.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\SVLab.UI.Infrastructure\SVLab.UI.Infrastructure.csproj">
       <Project>{a5fdb873-326b-42e6-8c21-d9ca1347f37f}</Project>
       <Name>SVLab.UI.Infrastructure</Name>

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace SVLab.Server.CommandService.EventHandlers
+namespace Ncqrs.Domain.Bus
 {
     public interface IEventHandler
     {
+        void Handle(IEvent eventMessage);
     }
 }
